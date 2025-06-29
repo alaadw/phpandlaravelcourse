@@ -1,9 +1,17 @@
 <?php
+require 'includes/main.php'; // Include header file for HTML structure
+
 require 'config/database.php'; // Include database connection
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);   
+
+$sql = "SELECT * FROM users order by id desc"; // SQL query to fetch all users
+$result = $conn->query($sql);  
+$title = "Users List"; // Set the title for the page 
+require 'includes/header.php'; // Include header file for HTML structure
+require 'includes/menu.php'; // Include navbar file for navigation
 ?>
-<table>
+<!-- HTML Structure  included -->
+
+<table class="table table-striped table-bordered">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -24,12 +32,15 @@ $result = $conn->query($sql);
                 echo "<td>No Image</td>";
             }
             echo "<td>";
-            echo "<a href='edit_user.php?id=" . $row['id'] . "'>Edit</a> | ";   
-            echo "<a href='delete_user.php?id=" . $row['id'] . "' onclick='return confirm(\"Are you sure you want to delete this user?\")'>Delete</a>";
+            echo "<a href='edit_user.php?id=" . $row['id'] . "' class='btn btn-primary btn-sm'>Edit</a> | ";   
+            echo "<a href='delete_user.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this user?\")'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
     } else {
         echo "<tr><td colspan='4'>No users found.</td></tr>";
     }
-    ?>     
+    ?>  
+</table>   
+<?php
+require 'includes/footer.php'; // Include footer file for closing HTML tags
