@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle file upload
         if ($product_image['error'] == 0) {
             $target_dir = "uploads/";
-            $target_file = $target_dir . basename($product_image["name"]);
+           // $target_file = $target_dir . basename($product_image["name"]);
+           $target_file = $target_dir . uniqid() . ".jpg";
             if (move_uploaded_file($product_image["tmp_name"], $target_file)) {
                 // Update product image path in database
                 $update_sql = "UPDATE products SET image = '$target_file' WHERE id = " . $conn->insert_id;
