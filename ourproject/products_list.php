@@ -1,7 +1,7 @@
 <?php
 require 'includes/main.php'; // Include main file for session management and database connection
 require 'config/database.php'; // Include database connection
-$title = "Products List"; // Set the title for the page
+$title = $lang['products_list']; // Set the title for the page
 require 'includes/header.php'; // Include header file for HTML structure
 require 'includes/menu.php'; // Include navbar file for navigation  
 
@@ -34,13 +34,16 @@ $totalPages = ceil($total / $limit); // Total number of pages
 
 
 ?>
+ 
+
+
 <form action="" method="get">
     <input type="search" name="search" placeholder="Search products..."
      class="form-control" style="width: 300px; display: inline-block;">
      <select class="" id="category_id" name="category_id" style="padding: 7px;
     border-radius: 5px;
     border: solid 1px #ccc;" required>
-            <option value="">Select Category</option>
+            <option value=""><?php echo $lang['select_category']; ?></option>
             <?php
             // Fetch categories from database
             $sql = "SELECT * FROM categories ORDER BY name ASC";
@@ -52,13 +55,14 @@ $totalPages = ceil($total / $limit); // Total number of pages
             }
             ?>
         </select>
-     <input type="submit" value="Search" class="btn btn-primary">
-    <a href="products_list.php" class="btn btn-secondary">Reset</a>
+     <input type="submit" value="<?php echo $lang['search']; ?>" class="btn btn-primary">
+    <a href="products_list.php" class="btn btn-secondary"><?php echo $lang['reset']; ?></a>
 </form>
 <?php
-$sql = "SELECT products.*,categories.name as catname FROM `products` 
+$sql = "SELECT products.*,categories.name as catname, categories.name_ar as catname_ar FROM `products` 
 left JOIN categories on products.category_id = categories.id
 where products.name like '%" . $conn->real_escape_string($_GET['search'] ?? '') . "%'" . $addedCondition . "
+
 order by products.id asc
 limit $limit offset $offset
 ";
@@ -70,22 +74,22 @@ $result = $conn->query($sql);?>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Featured</th>
-                <th>Image</th>
-                <th>Actions</th>
+                <th><?php echo $lang['id']?></th>
+                <th><?php echo $lang['name']?></th>
+                <th><?php echo $lang['category']?></th>
+                <th><?php echo $lang['description']?></th>
+                <th><?php echo $lang['price']?></th>
+                <th><?php echo $lang['featured']?></th>
+                <th><?php echo $lang['image']?></th>
+                <th><?php echo $lang['actions']?></th>
             </tr>
         </thead>
         <tbody>
             <?php while ($row = $result->fetch_assoc()){ ?>
-                <tr>
+                <tr id="product-<?php echo $row['id']; ?>">
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['catname']; ?></td>
+                    <td><?php echo ($language == 'ar') ? $row['catname_ar'] : $row['catname']; ?></td>
                     <td><?php echo $row['description']; ?></td>
                     <td><?php echo $row['price']; ?></td>
                     <td><?php echo ($row['featured'] == 1) ? 'Yes' : 'No'; ?> </td>
@@ -98,7 +102,7 @@ $result = $conn->query($sql);?>
                         <a href="edit_product.php?id=<?php echo $row['id']; ?>" class="btn btn-warning">Edit</a>
                         <a href="delete_product.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
                         <input type="checkbox" name="ides[]" value="<?php echo $row['id']; ?>" class="form-check-input">
-                        
+                        <a href="javascript:void(0);" onclick="delete_product(<?php echo $row['id']; ?>)" class="btn btn-danger">Delete via JS</a>
                     </td>
                 </tr>
             <?php }; ?>
