@@ -64,8 +64,32 @@ if (isset($_GET['id'])) {
         <input type="checkbox" id="featured" name="featured" value="1" <?php echo ($product['featured'] == 1) ? 'checked' : ''; ?>>
         <label for="featured" class="form-check-label">Featured</label>
     </div>
+        <!-- album or product gallery -->
+    <div class="mb-3">
+        <label for="product_gallery" class="form-label">Product Gallery</label>
+        <input type="file" class="form-control" id="product_gallery" name="product_gallery[]" multiple>
+    </div>
     <button type="submit" class="btn btn-primary">Update Product</button>
 </form>
+<div class="container mt-5">
+    <h2>Product Gallery</h2>
+    <?php
+    // Fetch product gallery images
+    $gallerySql = "SELECT * FROM product_gallery WHERE product_id = {$productId}";
+    $galleryResult = $conn->query($gallerySql);
+    if ($galleryResult->num_rows > 0) {
+        echo '<div class="row">';
+        while ($image = $galleryResult->fetch_assoc()) {
+            echo '<div class="col-md-4 mb-4" id="gallery-image-' . $image['id'] . '">';
+            echo '<img src="/ourproject/' . htmlspecialchars($image['image_path']) . '" class="img-fluid" style="min-width:100px;    min-height: 200px;" alt="Product Image">';
+            echo '<br/><a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="delete_product_image_gallery(' . $image['id'] . ')">Delete</a>';
+            echo '</div>';
+        }
+        echo '</div>';
+    } else {
+        echo "<p>No images found in the gallery.</p>";
+    }
+    ?></div>
 <?php
 require 'includes/footer.php'; // Include footer file for closing HTML tags
 ?>

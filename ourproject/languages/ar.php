@@ -30,7 +30,16 @@ $lang = [
     'product_deleted' => 'تم حذف المنتج بنجاح.',
     'reset' => 'إعادة تعيين',
     'products_list' => 'قائمة المنتجات',
-
+    'comments' => 'التعليقات',
+    'user_name' => 'اسم المستخدم',
+    'created_at' => 'تاريخ الإنشاء',
+    'product_name' => 'اسم المنتج',
+    'product_description' => 'وصف المنتج',
+    'no_comments_found' => 'لا توجد تعليقات',
+    'product_gallery' => 'معرض المنتج',
+    'comment' => 'التعليق',
+    'site_name' => 'اسم الموقع',
+    'welcome_message' => 'مرحبًا بك في موقعنا',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

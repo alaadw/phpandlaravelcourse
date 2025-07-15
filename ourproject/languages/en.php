@@ -30,6 +30,16 @@ $lang = [
     'product_deleted' => 'Product deleted successfully.',
     'reset' => 'Reset',
     'products_list' => 'Products List',
+    'comments' => 'Comments',
+    'user_name' => 'User Name',
+    'created_at' => 'Created At',
+    'product_name' => 'Product Name',
+    'product_description' => 'Product Description',
+    'no_comments_found' => 'No comments found.',
+    'product_gallery' => 'Product Gallery',
+    'comment' => 'Comment',
+    'site_name' => 'Site Name',
+    'welcome_message' => 'Welcome to our website',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

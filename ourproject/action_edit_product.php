@@ -20,7 +20,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $imagePath = $_POST['existing_image']; // Keep existing image if no new upload
     }
-
+    // multiplw upload images for product gallery
+    if (isset($_FILES['product_gallery'])) {
+        
+        foreach ($_FILES['product_gallery']['tmp_name'] as $key => $tmpName) {
+            if ($_FILES['product_gallery']['error'][$key] === UPLOAD_ERR_OK) {
+                $galleryPath = 'uploads/gallery/' . uniqid() . '_' . basename($_FILES['product_gallery']['name'][$key]);
+                move_uploaded_file($tmpName, $galleryPath);
+                //insert into product_gallery table
+                $gallerySql = "INSERT INTO product_gallery (product_id, image_path) VALUES ($productId, '$galleryPath')";
+                $conn->query($gallerySql);
+            }
+        }
+        // Save gallery images to database or handle as needed
+        // For example, you can save them in a separate table or as a JSON array in the product table
+    }
     // Update product in database
     $sql = "UPDATE products SET name = '$productName',featured ='$featured' , category_id = '$categoryId', description = '$productDescription', price = '$productPrice', image = '$imagePath' WHERE id = $productId";
 

@@ -90,7 +90,7 @@ $result = $conn->query($sql);?>
                     <td><?php echo $row['id']; ?></td>
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo ($language == 'ar') ? $row['catname_ar'] : $row['catname']; ?></td>
-                    <td><?php echo $row['description']; ?></td>
+                    <td><?php echo mb_substr($row['description'], 0, 100) . '...' ?></td>
                     <td><?php echo $row['price']; ?></td>
                     <td><?php echo ($row['featured'] == 1) ? 'Yes' : 'No'; ?> </td>
                     <td>

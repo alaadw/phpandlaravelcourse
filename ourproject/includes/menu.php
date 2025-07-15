@@ -1,5 +1,4 @@
  
-
 <div class="navbar">
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="users_list.php">
@@ -16,6 +15,8 @@
             <?php echo $lang['add_product']; ?></a></li>
         <li class="nav-item"><a class="nav-link" href="products_list.php">
             <?php echo $lang['products']; ?></a></li>
+        <li class="nav-item"><a class="nav-link" href="product_comments.php">
+            <?php echo $lang['comments']; ?></a></li>       
         <li class="nav-item"><a class="nav-link" href="logout.php">
             <?php echo $lang['logout']; ?></a></li>
         <li class="nav-item">

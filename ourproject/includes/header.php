@@ -45,6 +45,28 @@ function delete_product(id) {
     })
     .catch(() => alert('Error deleting'));
 }
+function delete_product_image_gallery(id) {
+    if (!confirm('Delete this item?')) return;
+    //confirm returns true or false
+    // If user confirms, proceed with deletion
+    // Use fetch API to send a POST request to delete_product.php
+    // This allows us to delete without reloading the page
+    fetch('delete_product_imagegallery.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'id=' + id
+    })
+    .then(res => {
+        if (res.ok) {
+            document.getElementById('gallery-image-' + id).remove();
+        } else {
+            alert('Error deleting');
+        }
+    })
+    .catch(() => alert('Error deleting'));
+}
+ 
 </script>
    </head>
 <body> 
+    
