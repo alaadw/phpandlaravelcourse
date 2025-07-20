@@ -54,7 +54,7 @@ $result = $conn->query($featuredProducts);
       <!-- recent products  -->
        <h2 class="p-3" style="padding-left: 10px"> Recent Products  </h2>
      <?php  
-       $recentProducts = "select * from products where featured = 0  order by id desc limit 6 ";
+       $recentProducts = "select * from products where featured = 0  order by id desc limit 12 ";
        $result = $conn->query($recentProducts);
       ?>
   <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">

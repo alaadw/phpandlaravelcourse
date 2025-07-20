@@ -40,6 +40,11 @@ $lang = [
     'comment' => 'التعليق',
     'site_name' => 'اسم الموقع',
     'welcome_message' => 'مرحبًا بك في موقعنا',
+    'my_cart' => 'عربة التسوق',
+    'add_to_cart' => 'إضافة إلى السلة',
+    'remove_from_cart' => 'إزالة من السلة',
+    'no_items_in_cart' => 'لا توجد عناصر في السلة',
+    'currency' => 'دينار',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

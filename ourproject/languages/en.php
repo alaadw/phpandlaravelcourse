@@ -40,6 +40,11 @@ $lang = [
     'comment' => 'Comment',
     'site_name' => 'Site Name',
     'welcome_message' => 'Welcome to our website',
+    'my_cart' => 'My Cart',
+    'add_to_cart' => 'Add to Cart',
+    'remove_from_cart' => 'Remove from Cart',
+    'no_items_in_cart' => 'No items in cart',
+    'currency' => 'Dinar',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

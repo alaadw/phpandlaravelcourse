@@ -3,8 +3,17 @@ require 'includes/main.php'; // Include main file for session management and dat
 require 'config/database.php'; // Include database connection
 require 'views/header.php'; // Include header file for common operations
 require 'views/menu.php'; // Include menu file for navigation
-$featuredProducts = "select * from products where featured = 1 order by id desc limit 3 ";
-$result = $conn->query($featuredProducts);
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Get product ID from URL, default to 0 if not set
+$product = "select * from products where id = {$id} limit 1";
+$result = $conn->query($product);
+if ($result->num_rows > 0) {
+    $productData = $result->fetch_assoc();
+} else {
+    // Redirect to home page if product not found
+    header("Location: index.php?error=Product not found");
+    exit();
+}
+ 
 ?>
 <style>
     .blackback {
@@ -17,40 +26,49 @@ $result = $conn->query($featuredProducts);
       color: white;
     }
 </style>
+<script>
+    function addToCart(productId) {
+         //confirm returns true or false
+    // If user confirms, proceed with deletion
+    // Use fetch API to send a POST request to addto_cart.php
+    // This allows us to add the product to the cart without reloading the page
+    fetch('addto_cart.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'id=' + productId 
+    })
+    .then(res => {
+        if (res.ok) {
+            document.getElementById('product-' + productId).innerHTML = '<p>Product added to cart successfully!</p>';
+        } else {
+            alert('Error adding to cart');
+        }
+    })
+    .catch(() => alert('Error adding to cart'));
+    }
+</script>
 <div class="container mt-5">
-<div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+ 
     <?php 
-     foreach ($result as $row) {
-        $productName = htmlspecialchars($row['name']);
-        $productImage = htmlspecialchars($row['image']);
+      if (isset($productData)) {
+        $productName = htmlspecialchars($productData['name']);
+        $productImage = htmlspecialchars($productData['image']);
         if (empty($productImage)) {
             $productImage = 'images/default-product.png'; // Default image if none is set
         }
+    } 
     ?>
-     <div class="col">
-        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('<?php echo $productImage ?>');">
-          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold blackback"><?php echo $productName; ?></h2>
-            <ul class="d-flex list-unstyled mt-auto">
-              <li class="me-auto">
-                <img src="<?php echo $productImage; ?>" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-              </li>
-              <li class="d-flex align-items-center me-3">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
-                <small>Earth</small>
-              </li>
-              <li class="d-flex align-items-center">
-                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                <small>3d</small>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    <?php } // end of while ?>
-      
-    </div>
-    </div>  
+      <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                <?php echo $productName; ?>
+            </h2> 
+            <div class="row">
+                 <div> <img src="<?php echo $productImage; ?>" alt="<?php echo $productName; ?>" class="img-fluid"/></div>
+                 <p><?php echo htmlspecialchars($productData['description']); ?></p>
+              </div> 
+           <div id="product-<?php echo $productData['id']; ?>" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('<?php echo $productImage ?>');">
+              <a href="javascript:void(0);" class="btn btn-primary" onclick="addToCart(<?php echo $productData['id']; ?>)">Add to Cart</a>
+
+           </div>       
       <!-- recent products  -->
        <h2 class="p-3" style="padding-left: 10px"> Recent Products  </h2>
      <?php  

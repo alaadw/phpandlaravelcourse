@@ -4,7 +4,7 @@ require 'config/database.php'; // Include database connection
 if(isset($_POST['email']) && isset($_POST['password'])) {
     $email = trim($_POST['email']);
     $password = md5(trim($_POST['password']));
-    $sql = "select * from users where email = '$email' and password = '$password' limit 1";
+    $sql = "select * from users where email = '$email' and password = '$password' and user_type = 1 limit 1";
     //echo $sql; // Debugging line to check the SQL query
     //die();
     $result = $conn->query($sql);

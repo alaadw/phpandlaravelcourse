@@ -14,8 +14,18 @@ switch ($endpoint) {
         if ($result->num_rows > 0) {
             $products = [];
             while ($row = $result->fetch_assoc()) {
-                $products[] = $row;
+                $products[$row['id']] = $row;
             }
+           
+            // Add additional fields if necessary
+            $imageSql =  "SELECT * FROM product_gallery WHERE product_id IN (" . implode(',', array_keys($products)) . ")";
+            $imageResult = $conn->query($imageSql);
+            if ($imageResult->num_rows > 0) {
+                while ($imageRow = $imageResult->fetch_assoc()) {
+                    $products[$imageRow['product_id']]['images'][] = $imageRow;
+                }
+            }
+             
             // Return products as JSON
             echo json_encode($products);
         } else {

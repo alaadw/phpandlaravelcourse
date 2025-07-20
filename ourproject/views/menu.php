@@ -7,9 +7,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="products.php"><?php echo $lang['products_list']; ?></a>
+                        <a class="nav-link" href="allproducts.php"><?php echo $lang['products_list']; ?></a>
                     </li>
-                     
+                    <li class="nav-item">
+                        <a class="nav-link" href="mycart.php"><?php echo $lang['my_cart']; ?></a>
+                    </li>
                       
                      
                 </ul>
