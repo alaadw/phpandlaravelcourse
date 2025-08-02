@@ -45,6 +45,12 @@ $lang = [
     'remove_from_cart' => 'Remove from Cart',
     'no_items_in_cart' => 'No items in cart',
     'currency' => 'Dinar',
+    'checkout' => 'Checkout',
+    'checkout_success' => 'Checkout successful',
+    'phone_number' => 'Phone Number',
+    'shipping_address' => 'Shipping Address',
+    'order_summary' => 'Order Summary',
+    'confirm_order' => 'Confirm Order',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

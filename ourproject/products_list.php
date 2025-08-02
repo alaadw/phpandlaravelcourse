@@ -31,11 +31,13 @@ $totalResult = $conn->query("SELECT COUNT(*) as total FROM products where name l
 $totalRow = $totalResult->fetch_assoc();    
 $total = $totalRow['total']; // Total number of records
 $totalPages = ceil($total / $limit); // Total number of pages
-
-
+ 
 ?>
  
-
+<a href="/ourproject/all_products_csv.php?csv=true" class="btn btn-success mb-3">
+    CSV Download
+    <i class="fas fa-file-csv"></i>
+</a>
 
 <form action="" method="get">
     <input type="search" name="search" placeholder="Search products..."

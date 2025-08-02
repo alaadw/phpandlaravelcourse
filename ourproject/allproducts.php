@@ -3,7 +3,15 @@ require 'includes/main.php'; // Include main file for session management and dat
 require 'config/database.php'; // Include database connection
 require 'views/header.php'; // Include header file for common operations
 require 'views/menu.php'; // Include menu file for navigation
-$featuredProducts = "select * from products where featured = 1 order by id desc limit 3 ";
+require 'includes/functions.php'; // Include functions file for utility functions
+if(isset($_GET['id']) && !empty($_GET['id'])) {
+    $categoryId = (int)$_GET['id'];
+    $addedCondition = " and category_id = $categoryId";
+} else {
+    $addedCondition = '';
+
+}
+$featuredProducts = "select * from products where featured = 1 $addedCondition order by id desc limit 3 ";
 $result = $conn->query($featuredProducts);
 ?>
 <style>
@@ -41,7 +49,7 @@ $result = $conn->query($featuredProducts);
               </li>
               <li class="d-flex align-items-center">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                <small>3d</small>
+                <small><?php  echo getDateDifference($row['created_at']); ?></small>
               </li>
             </ul>
           </div>
@@ -82,7 +90,7 @@ $result = $conn->query($featuredProducts);
               </li>
               <li class="d-flex align-items-center">
                 <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
-                <small>3d</small>
+                <small><?php  echo getDateDifference($row['created_at']); ?></small>
               </li>
             </ul>
           </div>

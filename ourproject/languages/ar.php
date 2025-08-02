@@ -45,6 +45,12 @@ $lang = [
     'remove_from_cart' => 'إزالة من السلة',
     'no_items_in_cart' => 'لا توجد عناصر في السلة',
     'currency' => 'دينار',
+    'checkout' => 'الدفع',
+    'checkout_success' => 'تم الدفع بنجاح',
+    'phone_number' => 'رقم الهاتف',
+    'shipping_address' => 'عنوان الشحن',
+    'order_summary' => 'ملخص الطلب',
+    'confirm_order' => 'تأكيد الطلب',
 ];
 //echo $lang['users']; // Example usage
 //echo $lang['categories']; // Example usage

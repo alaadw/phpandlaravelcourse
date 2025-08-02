@@ -15,8 +15,16 @@ function getCategoryName($categoryId) {
     return 'Unknown Category';
 }
 /** fetch json from other website  */
+$contextOptions = [
+    "ssl" => [
+        "verify_peer" => false,
+        "verify_peer_name" => false,
+    ],
+];
+
+$json = file_get_contents("https://fakestoreapi.com/products", false, stream_context_create($contextOptions));
 //https://fakestoreapi.com/products
-$json = file_get_contents('https://fakestoreapi.com/products');
+//$json = file_get_contents('http://fakestoreapi.com/products');
 // Decode JSON data
 $products = json_decode($json, true);
 foreach($products as $product){
@@ -33,7 +41,7 @@ foreach($products as $product){
     // Prepare and execute SQL statement to insert product
    $sql  = "INSERT INTO products (name, category_id, description, price, featured, 
    image)
-    VALUES ('{$title}', 3, '{$desc}', '{$price}', 0, '{$image}')";
+    VALUES ('{$title}', 3, '{$desc}', '{$price}', 10, '{$image}')";
     if ($conn->query($sql) === TRUE) {
         echo "New product created successfully<br>";
     } else {

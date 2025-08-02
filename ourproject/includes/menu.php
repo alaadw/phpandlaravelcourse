@@ -1,4 +1,4 @@
- 
+
 <div class="navbar">
     <ul class="nav">
         <li class="nav-item"><a class="nav-link" href="users_list.php">
