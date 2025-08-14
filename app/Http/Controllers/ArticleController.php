@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+ 
 use Illuminate\Http\Request;
 use App\Models\Article;
 class ArticleController extends Controller
@@ -11,15 +11,19 @@ class ArticleController extends Controller
         // Logic to retrieve articles from the database
         // For now, we can return a simple message
         //return 'List of articles';
-        $articles = Article::all();
+        $articles = Article::orderBy('published_at', 'desc')->paginate(4);
+
         //dd($articles); // Helper : This will dump the articles and stop execution it is caled for debugging
+        
         return view('articles.index', compact('articles'));
     }
     public function show($id)
     {
         // Logic to retrieve a single article by ID
-        $article = Article::findOrFail($id); // you can use or find only
-        $page = 'show';
+        $page = 'Article Details'; // Example variable to pass to the view
+        $article = Article::findOrFail($id);
+       // dd($article->category->name); // Helper : This will dump the category name of the article and stop execution it is called for debugging
+         
         return view('articles.show', compact('article', 'page'));
     }
     public function create()
@@ -35,8 +39,9 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->author = $request->input('author');
+        $article->category_id = $request->input('category_id')?? 1;
         $article->published_at = $request->input('published_at');
-        $article->slug = \Str::slug($article->title); // Generate a slug from the title
+        //$article->slug = \Str::slug($article->title); // Generate a slug from the title
         $article->save(); // Don't forget to save the article
         return redirect()->route('articles.index')->with('success', 'Article created successfully!') ;
     }
