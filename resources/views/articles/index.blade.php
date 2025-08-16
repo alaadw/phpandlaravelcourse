@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Author</th>
                 <th>Published At</th>
                 <th>Actions</th>
@@ -15,7 +16,8 @@
         <tbody>
             @foreach($articles as $article)
                 <tr>
-                    <td>{{ $article->title }} (Category: {{ $article->category->name }})</td>
+                    <td>{{ $article->title }}</td>
+                    <td>{{ $article->category->name }}</td>
                     <td>{{ $article->author }}</td>
                     <td>{{ $article->published_at }}</td>
                     <td>

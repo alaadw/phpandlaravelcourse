@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Category;
 class ArticleController extends Controller
 {
     public function index()
@@ -45,4 +46,33 @@ class ArticleController extends Controller
         $article->save(); // Don't forget to save the article
         return redirect()->route('articles.index')->with('success', 'Article created successfully!') ;
     }
+    public function edit($id)
+    {
+        // Logic to show the article edit form
+        $article = Article::findOrFail($id);
+        $categories = Category::all(); // Assuming you have a Category model to fetch categories
+        return view('articles.edit', compact('article', 'categories'));
+    }
+    public function update(Request $request, $id)
+    {
+        // Logic to update an existing article in the database
+        $article = Article::findOrFail($id);
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->author = $request->input('author');
+        $article->category_id = $request->input('category_id')?? 1;
+        $article->published_at = $request->input('published_at');   
+        $article->save();
+        return redirect()->route('articles.index')->with('success', 'Article updated successfully!');
+    
+    }
+    public function destroy($id)
+    {
+        // Logic to delete an article from the database
+        $article = Article::findOrFail($id);
+        $article->delete();
+        return redirect()->route('articles.index')->with('success', 'Article deleted successfully!');
+    }
+     
+    
 }
