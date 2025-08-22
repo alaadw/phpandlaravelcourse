@@ -61,6 +61,12 @@ class ArticleController extends Controller
         $article->content = $request->input('content');
         $article->author = $request->input('author');
         $article->category_id = $request->input('category_id')?? 1;
+        if(!is_null($request->file('image')) ){
+            $fileName = time().'_'.$file->getClientOriginalName();
+            $path = $file->storeAs('uploads',$fileName,'public');
+            $article->image = $path;
+        }
+
         $article->published_at = $request->input('published_at');   
         $article->save();
         return redirect()->route('articles.index')->with('success', 'Article updated successfully!');
@@ -73,6 +79,6 @@ class ArticleController extends Controller
         $article->delete();
         return redirect()->route('articles.index')->with('success', 'Article deleted successfully!');
     }
+
      
-    
 }

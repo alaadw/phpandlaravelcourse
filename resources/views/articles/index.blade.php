@@ -1,16 +1,17 @@
  
  @extends('layouts.app')
 @section('content')
+
 <div>
     <h1>Articles</h1>
      <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Author</th>
-                <th>Published At</th>
-                <th>Actions</th>
+                <th>{{ __('messages.article_title') }}</th>
+                <th>{{ __('messages.category') }}</th>
+                <th>{{ __('messages.author') }}</th>
+                <th>{{ __('messages.published_at') }}</th>
+                <th>{{ __('messages.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +20,8 @@
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->category->name }}</td>
                     <td>{{ $article->author }}</td>
-                    <td>{{ $article->published_at }}</td>
+                     
+                    <td>{{ \Carbon\Carbon::parse($article->published_at)->format('d M Y') }}</td>
                     <td>
                         <a href="{{ route('articles.show', $article->id) }}" class="btn btn-info">View</a>
                         <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning">Edit</a>
@@ -34,5 +36,6 @@
         </tbody>
     </table>
     {{ $articles->links() }}
+ 
 @endsection
  

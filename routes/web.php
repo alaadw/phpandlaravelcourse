@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
-
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LanguageController;
 
-//routes of auth 
+//route of language
+Route::get('/language/{locale}',[LanguageController::class,'switchLanguage'])->name('language.switch');
+
+// Authentication routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
