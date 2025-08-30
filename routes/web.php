@@ -17,7 +17,7 @@ Route::post('/register', [AuthController::class, 'register']);
 //example to use 
 //Route::get('/index', [ArticleController::class, 'index'])->middleware('auth')->name('articles.index');
 //routes of articles without login cannot enter
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:article')->group(function () {
    Route::resource('articles', ArticleController::class);
 });
 

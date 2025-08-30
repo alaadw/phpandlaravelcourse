@@ -19,15 +19,18 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
         $credentials = $request->only('email', 'password');
-        if( auth()->attempt($credentials)){
+        if( Auth::guard('article')->attempt($credentials)){
             return redirect()->route('articles.index')->with('success', 'Login successful!');
         }
+        //if( auth()->attempt($credentials)){
+        //    return redirect()->route('articles.index')->with('success', 'Login successful!');
+        //}
         return redirect()->back()->with('error', 'Invalid credentials');
     }
     public function logout()
     {
         // Logic to log out the user
-        auth()->logout();
+        Auth::guard('article')->logout();
         return redirect()->route('login')->with('success', 'Logged out successfully!');
     }
     public function showRegister()

@@ -7,7 +7,9 @@
      <table class="table">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>{{ __('messages.article_title') }}</th>
+                <th> User </th>
                 <th>{{ __('messages.category') }}</th>
                 <th>{{ __('messages.author') }}</th>
                 <th>{{ __('messages.published_at') }}</th>
@@ -17,9 +19,11 @@
         <tbody>
             @foreach($articles as $article)
                 <tr>
-                    <td>{{ $article->title }}</td>
-                    <td>{{ $article->category->name }}</td>
-                    <td>{{ $article->author }}</td>
+                    <td> {{ $article-> id }}</td>
+                    <td>{{ $article-> title }}</td>
+                    <td>{{ $article-> user-> name }}</td>
+                    <td>{{ $article-> category->name }}</td>
+                    <td>{{ $article-> author }}</td>
                      
                     <td>{{ \Carbon\Carbon::parse($article->published_at)->format('d M Y') }}</td>
                     <td>

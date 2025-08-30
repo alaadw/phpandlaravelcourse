@@ -29,8 +29,8 @@
             <input type="text" id="author" name="author" value="{{ old('author', $article->author) }}" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Author:</label>
-            <input type="file" id="image" name="iamge"  class="form-control" >
+            <label for="image" class="form-label">Image:</label>
+            <input type="file" id="image" name="image"  class="form-control" >
         </div>   
         <div class="mb-3">
             <label for="published_at" class="form-label">Published At:</label>
