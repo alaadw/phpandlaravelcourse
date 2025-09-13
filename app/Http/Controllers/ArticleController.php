@@ -8,6 +8,10 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        //view()->share('categories', Category::all());
+    }
     public function index()
     {
       // dd(Carbon::now()->toDateString()); // for current date 
@@ -15,6 +19,7 @@ class ArticleController extends Controller
       //dd(Carbon::now()->today()->format('d/m/Y'));
       //dd(Carbon::now()->today()->format('l'));
       $nextWeek = Carbon::now()->addWeek();
+      
      // Carbon::setLocale('ar');
       //dd(Carbon::now()->subDays(3)->diffForHumans());//منذ 3 أيام
         // Logic to retrieve articles from the database

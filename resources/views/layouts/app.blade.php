@@ -29,6 +29,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('articles.create') }}">Create Article</a>
         </li>
+        <li>
+          @foreach ($categories as $category)
+            <a class="nav-link" href="{{ route('articles.index', ['category' => $category->id]) }}">{{ $category->name }}</a>
+          @endforeach
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

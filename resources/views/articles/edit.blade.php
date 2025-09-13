@@ -10,6 +10,8 @@
             <label for="title" class="form-label">Title:</label>
             <input type="text" id="title" name="title" value="{{ old('title', $article->title) }}" class="form-control" required>
         </div>
+        <!-- asset is one of laravel helpers : means ready functions-->
+        <img src="{{ asset('storage/' . $article->image) }}" alt="Article Image" class="img-fluid mb-3"/>
         <div class="mb-3">
             <label for="category_id" class="form-label">Category:</label>
             <select id="category_id" name="category_id" class="form-select" required>
